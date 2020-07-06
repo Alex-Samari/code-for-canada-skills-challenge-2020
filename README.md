@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/80126b66-fe2f-4588-814f-e1eded5e059b/deploy-status)](https://app.netlify.com/sites/code-for-canada-developer-challenge-2020/deploys)
+
 # Code For Canada Developer Challenge 2020
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
