@@ -53,8 +53,6 @@ export class AppComponent implements OnInit {
       (csvData: string) => {
         const csvRecords = csvData.split(/\r\n|\n/);
 
-        console.warn(csvRecords[0]);
-
         const csvHeaders = csvRecords[0].split(',');
 
         this.records = this.getDataRecordsArrayFromCSVFile(
