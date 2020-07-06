@@ -119,6 +119,14 @@
               "devServerTarget": "code-for-canada-challenge:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/code-for-canada-challenge",
+            "netlifyToken": "",
+            "siteId": "80126b66-fe2f-4588-814f-e1eded5e059b"
+          }
         }
       }
     }
