@@ -61,6 +61,10 @@ export class AppComponent implements OnInit {
           csvRecords,
           csvHeaders.length
         );
+
+        this.dataSource = new MatTableDataSource(this.records);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       (err) => {
         alert('Could not load the data!');
@@ -155,4 +159,12 @@ export class AppComponent implements OnInit {
       });
     });
   };
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }

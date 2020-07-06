@@ -3,16 +3,93 @@
 		<mat-card-header>
 			<mat-card-title>Code For Canada Developer Challenge 2020</mat-card-title>
 			<mat-card-subtitle>Solved by Alex Samari </mat-card-subtitle>
+
+			<div class="links">
+				<a color="primary" mat-button href="#" rel="noopnener" target="_blank">
+					<mat-icon>code</mat-icon><span>Source Code</span>
+				</a>
+			</div>
 		</mat-card-header>
 
 		<mat-card-content>
 
+			<mat-tab-group backgroundColor="primary">
+				<mat-tab label="Problem">
+					<div class="margin-align">
+						<p>The task: Look at the data representing building code violations.
+							Write a brief program in the language of your choice to summarize
+							the data.</p>
 
+						<p>Your program should calculate:</p>
+
+						<ul>
+							<li>The number of violations in each category
+							</li>
+							<li>The earliest and latest violation date for each category
+							</li>
+						</ul>
+
+					</div>
+
+
+					<div class="mat-elevation-z2 table-container">
+						<mat-form-field>
+							<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
+						</mat-form-field>
+
+						<table mat-table [dataSource]="dataSource" matSort>
+
+							<ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+								<mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+									{{ col }}
+								</mat-header-cell>
+								<mat-cell mat-cell *matCellDef="let rowObj">
+									{{rowObj[col]}}
+								</mat-cell>
+							</ng-container>
+
+
+							<mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+							<mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+						</table>
+
+						<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+					</div>
+				</mat-tab>
+				<mat-tab label="Question 1">
+					<mat-list>
+						<h2 mat-subheader>The number of violations in each category</h2>
+						<mat-list-item *ngFor="let obj of categoryViolationsArr">
+							<h4 mat-line><b>Category: </b> {{ obj.category }}</h4>
+							<p mat-line><b>Number of Violations: </b> {{ obj.violations }}</p>
+						</mat-list-item>
+					</mat-list>
+				</mat-tab>
+
+				<mat-tab label="Question 2 part A">
+					<mat-list>
+						<h2 mat-subheader>
+							The earliest date of violation in each category
+						</h2>
+						<mat-list-item *ngFor="let obj of categoryViolationDatesEarlyArr">
+							<h4 mat-line><b>Category: </b> {{ obj.category }}</h4>
+							<p mat-line><b>Earliest Violation Date: </b> {{ obj.date }}</p>
+						</mat-list-item>
+					</mat-list>
+				</mat-tab>
+
+				<mat-tab label="Question 2 part B">
+					<mat-list>
+						<h2 mat-subheader>The latest date of violation in each category</h2>
+						<mat-list-item *ngFor="let obj of categoryViolationDatesLateArr">
+							<h4 mat-line><b>Category: </b> {{ obj.category }}</h4>
+							<p mat-line><b>Latest Violation Date: </b> {{ obj.date }}</p>
+						</mat-list-item>
+					</mat-list>
+				</mat-tab>
+			</mat-tab-group>
 		</mat-card-content>
 
-		<mat-card-actions>
-			<a color="primary" mat-button href="#" rel="noopnener" target="_blank">
-				<mat-icon>code</mat-icon><span>Source Code</span>
-			</a></mat-card-actions>
+
 	</mat-card>
 </div>
