@@ -88,6 +88,8 @@ export class AppComponent implements OnInit {
       }
     }
 
+    this.solveChallenge();
+
     return this.csvArr;
   }
 
@@ -99,5 +101,58 @@ export class AppComponent implements OnInit {
     ) {
       this.categoryList.push(csvRecord.violation_category);
     }
+  };
+
+  solveChallenge = () => {
+    for (const category of this.categoryList) {
+      const recordsForCurrentCategory = this.csvArr.filter((record) => {
+        return record.violation_category === category;
+      });
+
+      const categoryCounter = recordsForCurrentCategory.length;
+
+      const earlyViolationDate = new Date(
+        Math.min.apply(
+          null,
+          recordsForCurrentCategory.map((record) => {
+            return new Date(record.violation_date);
+          })
+        )
+      );
+
+      const lateViolationDate = new Date(
+        Math.max.apply(
+          null,
+          recordsForCurrentCategory.map((record) => {
+            return new Date(record.violation_date);
+          })
+        )
+      );
+
+      this.categoryViolations[category] = categoryCounter;
+      this.categoryViolationDatesEarly[category] = earlyViolationDate;
+      this.categoryViolationDatesLate[category] = lateViolationDate;
+    }
+
+    Object.keys(this.categoryViolations).forEach((key) => {
+      this.categoryViolationsArr.push({
+        category: key,
+        violations: this.categoryViolations[key],
+      });
+    });
+
+    Object.keys(this.categoryViolationDatesEarly).forEach((key) => {
+      this.categoryViolationDatesEarlyArr.push({
+        category: key,
+        date: this.categoryViolationDatesEarly[key].toDateString(),
+      });
+    });
+
+    Object.keys(this.categoryViolationDatesLate).forEach((key) => {
+      this.categoryViolationDatesLateArr.push({
+        category: key,
+        date: this.categoryViolationDatesLate[key].toDateString(),
+      });
+    });
   };
 }
